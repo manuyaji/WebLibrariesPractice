@@ -1,4 +1,4 @@
-# SCRIPT FILE
+# THINGS DONE
 The commands run are:
 1. npm install bootstrap@3
 1. npm install angular
