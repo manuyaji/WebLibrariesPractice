@@ -4,14 +4,14 @@ thisApp.config(
     function($routeProvider){
         $routeProvider.when("/players", {
             templateUrl:"templates/players-list.html",
-            controller:"TestController"
-            //controller:"playersListController"
+            //controller:"TestController"
+            controller:"playersListController"
         })
         .when("/players/add", {
             templateUrl:"templates/players-individual.html",
             controller:"playersAddController"
         })
-        .when("/players/:player", {
+        .when("/players/:jerseyNumber", {
             templateUrl:"templates/players-individual.html",
             controller:"playersIndividualViewController"
         })
@@ -25,7 +25,7 @@ thisApp.config(
     }
 )
 
-/*
+
 thisApp.factory("basePlayerService", ["$rootScope", function($rootScope){
 
     var svc = {};
@@ -49,51 +49,63 @@ thisApp.factory("basePlayerService", ["$rootScope", function($rootScope){
         data.push(player);
     }
 
-    svc.viewPlayer = function(playerIndex){
-        return data[playerIndex];
+    svc.viewPlayer = function(playerJersey){
+        for(each in data){
+            if(data[each].jersey == playerJersey){
+                return data[each];
+            }
+        }
+        return null;
     }
 
-    svc.editPlayer = function(playerIndex, player){
-        data[playerIndex] = player;
+    svc.editPlayer = function(playerJersey, player){
+        for(each in data){
+            if(data[each].jersey == playerJersey){
+                data[each] = player;
+                break;
+            }
+        }
     }
 
     return svc;
 
 }]);
 
-thisApp.controller("playersListController", ["$scope","$location","$routeParams",//"basePlayerService",
-    function($scope, $location, $routeParams){
+thisApp.controller("playersListController", ["$scope","$location","$routeParams","basePlayerService",
+    function($scope, $location, $routeParams, basePlayerService){
         
-        //$scope.data=$basePlayerService.getPlayers();
+        $scope.data=basePlayerService.getPlayers();
 
         $scope.addPlayer=function(){
             //alert("Na na na na na na");
             $location.path("/players/add");
         }
 
-        $scope.viewPlayer=function(player){
+        $scope.viewPlayer=function(playerJersey){
             //alert(player);
-            $location.path("/players/"+player);
+            $location.path("/players/"+playerJersey);
         }
     }
 ]);
-*/
 
-thisApp.controller("playersAddController", ["$scope","$location","$routeParams",//"basePlayerService",
-    function($scope, $location, $routeParams){
+thisApp.controller("playersAddController", ["$scope","$location","$routeParams","basePlayerService",
+    function($scope, $location, $routeParams, basePlayerService){
         
         //$scope.data=basePlayerService.getPlayers();
 
         $scope.save = function(){
-            $location.path("/players/"+playerIndex);
+            //basePlayerService.addPlayer($scope.player);
+            //$location.path("/players/"+$scope.player.jersey);
+            alert("not yet implemented");
         };
 
-        $scope.cancel = function(playerIndex){
+        $scope.cancel = function(){
             $location.path("/players");
         };
     }
 ]);
 
+/*
 thisApp.controller("playersEditController", ["$scope","$location","$routeParams",//"basePlayerService",
     function($scope, $location, $routeParams){
         
@@ -108,11 +120,11 @@ thisApp.controller("playersEditController", ["$scope","$location","$routeParams"
         };
     }
 ]);
+*/
 
-thisApp.controller("playersIndividualViewController", ["$scope","$location","$routeParams",//"basePlayerService",
-    function($scope, $location, $routeParams){
-        
-        //$scope.data=basePlayerService.getPlayers();
+thisApp.controller("playersIndividualViewController", ["$scope","$location","$routeParams","basePlayerService",
+    function($scope, $location, $routeParams, basePlayerService){
+        $scope.player=basePlayerService.viewPlayer(parseInt($routeParams.jerseyNumber));
 
         $scope.addPlayer = function(){
             $location.path("/players/add");
@@ -120,6 +132,16 @@ thisApp.controller("playersIndividualViewController", ["$scope","$location","$ro
 
         $scope.viewPlayer = function(playerIndex){
             $location.path("/players/"+playerIndex);
+        };
+
+        $scope.save = function(){
+            //$location.path("/players/"+playerIndex);
+            basePlayerService.editPlayer(player.jersey, player);
+            //alert("Save not yet implemented");
+        };
+
+        $scope.cancel = function(playerIndex){
+            $location.path("/players");
         };
     }
 ]);

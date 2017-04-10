@@ -16,7 +16,7 @@
                 <th>Yellow Cards</th>
                 <th>Red Cards</th>
             </tr>
-            <tr data-ng-repeat="item in data | filter:searchPlayers" data-ng-click="viewPlayer(item.player)"> 
+            <tr data-ng-repeat="item in data | filter:searchPlayers" data-ng-click="viewPlayer(item.jersey)"> 
                 <td>{{item.jersey}}</td>
                 <td>{{item.player}}</td>
                 <td>{{item.games}}</td>
