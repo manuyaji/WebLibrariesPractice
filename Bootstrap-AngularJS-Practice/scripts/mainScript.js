@@ -94,9 +94,12 @@ thisApp.controller("playersAddController", ["$scope","$location","$routeParams",
         //$scope.data=basePlayerService.getPlayers();
 
         $scope.save = function(){
-            //basePlayerService.addPlayer($scope.player);
-            //$location.path("/players/"+$scope.player.jersey);
-            alert("not yet implemented");
+            basePlayerService.addPlayer({ jersey:$scope.player.jersey, player:$scope.player.player,
+            games: $scope.player.games, substitutes: $scope.player.substitutes, 
+            goals: $scope.player.goals, assists: $scope.player.assists, cleanSheets: $scope.player.cleanSheets, 
+            yellowCards: $scope.player.yellowCards, redCards: $scope.player.redCards});
+            $location.path("/players/"+$scope.player.jersey);
+            //alert("not yet implemented");
         };
 
         $scope.cancel = function(){
