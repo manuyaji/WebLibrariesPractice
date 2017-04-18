@@ -20,12 +20,19 @@ function checkAndSetHit(gridNum){
     }
 }
 
-function isValidInput(userInput){
+function isValidInputOld(userInput){
     var guessNumber = parseInt(userInput);
     if(!isNaN(guessNumber)){
         return (guessNumber>=0 && guessNumber<=6);
     }
     return false;
+}
+
+function isValidInput(userInput){
+    /*hit.indexOf(userInput) below is not working as expected. userInput is being taken as a string
+    and not as a number probably.*/
+    //return (userInput>=0 && userInput<=6 && hit.indexOf(userInput)==-1); 
+    return (userInput>=0 && userInput<=6);
 }
 
 alert("We are starting a game now!");
