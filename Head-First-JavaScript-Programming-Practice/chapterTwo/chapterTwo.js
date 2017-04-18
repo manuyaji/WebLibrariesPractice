@@ -20,12 +20,26 @@ function checkAndSetHit(gridNum){
     }
 }
 
+function isValidInput(userInput){
+    var guessNumber = parseInt(userInput);
+    if(!isNaN(guessNumber)){
+        return (guessNumber>=0 && guessNumber<=6);
+    }
+    return false;
+}
+
 alert("We are starting a game now!");
 
 while(notEnded()){
     var userInput = prompt("Enter a number between 0 & 6", "-1");
-    guesses++;
-    alert(checkAndSetHit(parseInt(userInput)));
+    console.log("Input="+userInput);
+    if(isValidInput(userInput)){
+        guesses++;
+        alert(checkAndSetHit(parseInt(userInput)));
+    }
+    else{
+        alert("Please enter a valid input.");
+    }
 }
 alert("Congratulations!! Ship is destroyed! You took "+guesses+" number of guesses");
 
