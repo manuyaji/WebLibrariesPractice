@@ -5,6 +5,7 @@ var guesses = 0;
 function getConsecutiveRandomNumbers(begin, end, numberOfConsecutiveRandomNumbers){
     var firstNum = begin+Math.floor(Math.random()*(end-begin+1));
     var ret = [firstNum];
+    var i = 1;
     for(i=1; i<numberOfConsecutiveRandomNumbers; i++){
         ret.push(firstNum+i);
     }
@@ -12,7 +13,9 @@ function getConsecutiveRandomNumbers(begin, end, numberOfConsecutiveRandomNumber
 }
 
 function setShip(){
-    return getConsecutiveRandomNumbers(0,4,3);
+    ret = getConsecutiveRandomNumbers(0,4,3);
+    //console.log("Testing i: "+i);
+    return ret;
 }
 
 function notEnded(){
